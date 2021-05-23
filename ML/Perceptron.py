@@ -33,8 +33,11 @@ class Perceptron:
     def gen_connection_table(self):
         for i in range(2500):
             self.connectionTable.append(list([0] * 500))
-        for i in range(500):
-            self.connectionTable[i][i] = random.choice([1, -1])
+        # заполнение по диагонали
+        j = 0
+        for i in range(500-1, -1, -1):
+            self.connectionTable[i][j] = random.choice([1, -1])
+            j += 1
         for i in range(500, 2500):
             self.connectionTable[i][random.randint(0, 500 - 1)] = random.choice([1, -1])
 
@@ -114,7 +117,6 @@ class Perceptron:
                 # R элемент
                 self.update_R()
                 # обновление лямд
-                print(self.paths[j])
                 self.update_lambda(self.paths[j])
                 # сохраниние лямд в массив
                 self.save_lambda()
